@@ -12,7 +12,7 @@ export const postData = async (data: any) => {
         );
 
         if (!response.ok) {
-            throw new Error("Network response failed");
+            throw new Error("Network error");
         }
 
         return await response.json();

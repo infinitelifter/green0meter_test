@@ -1,18 +1,18 @@
 import { Field } from "../types/form";
+import _ from "lodash";
 
 export function generateDefaultValues(fields: Field[][]): {
     [key: string]: string;
 } {
-    const allFields = fields.flat();
-    return allFields.reduce((acc, field) => {
+    return _.flatMap(fields).reduce((acc: { [key: string]: string }, field) => {
         acc[field.name] = field.defaultValue;
         return acc;
-    }, {} as { [key: string]: string });
+    }, {});
 }
 
 export const generateFieldsForAllSteps = (): Field[][] => {
-    return Array.from({ length: 25 }, (_, step) =>
-        Array.from({ length: 100 }, (_, index) => ({
+    return _.range(25).map((step) =>
+        _.range(100).map((index) => ({
             name: `fieldStep${step}Field${index}`,
             label: `Field ${step * 100 + index + 1}`,
             defaultValue: "",
